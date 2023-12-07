@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<stdlib.h>
+void main()
+{
+ int n,i,j,k,f1,f2,f3,temp[10],m[10],f,pos,max,pf=0;
+ scanf("%d",&n);
+ int rs[n];
+ for(i=0;i<n;i++)
+ scanf("%d",&rs[i]);
+ scanf("%d",&f);
+ for(i=0;i<f;i++)
+ m[i]=-1;
+ 
+ for(i=0;i<n;i++)
+ {
+ 	f1=f2=0;
+ 	for(j=0;j<f;j++)
+ 	{
+ 		if(m[j]==rs[i]){
+ 		 f1=f2=1;
+ 		 break;
+	 }
+    }
+	 if(f1==0)
+	 {
+	 	for(j=0;j<f;j++)
+	 	{
+	 		if(m[j]==-1)
+	 		{
+	 			pf++;
+	 			m[j]=rs[i];
+	 			f2=1;
+	 			break;
+			 }
+		 }
+	 }
+	 if(f2==0)
+	 {
+	 	f3=0;
+	 	for(j=0;j<f;j++)
+	 	{
+	 		temp[j]=-1;
+	 		for(k=i+1;k<n;k++)
+	 		{
+	 			if(m[j]==rs[k])
+	 			{
+	 				temp[j]=k;
+	 				break;
+				 }
+			 }
+		 }
+		 for(j=0;j<f;j++)
+		 {
+		 	if(temp[j]==-1)
+		 	{
+		 		pos=j;
+		 		f3=1;
+		 		break;
+			 }
+		 }
+		 if(f3==0)
+		 {
+		 	max=temp[0];
+		 	pos=0;
+		 	for(j=0;j<f;j++)
+		 	{
+		 		if(max<temp[j])
+		 		{
+		 			max=temp[j];
+		 			pos=j;
+				 }
+			 }
+		 }
+		 m[pos]=rs[i];
+		 pf++;
+	}
+	printf("\n");
+		 for(j=0;j<f;j++)
+		 printf("%d ",m[j]);
+	 }
+	 printf("\n page fault count : %d",pf);
+}
